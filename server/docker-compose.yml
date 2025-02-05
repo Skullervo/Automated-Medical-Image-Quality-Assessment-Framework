@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"  # Sovelluksen portti
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=QA-results
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=pohde24
+      - ORTHANC_URL=http://orthanc:8042  # Orthancin osoite Docker-verkossa
+    depends_on:
+      - db
+      - orthanc
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pohde24
+      POSTGRES_DB: QA-results
+    ports:
+      - "5432:5432"
+
+  orthanc:
+    image: jodogne/orthanc:latest
+    restart: always
+    ports:
+      - "8042:8042"  # Orthancin oletusportti
+    volumes:
+      - orthanc-data:/var/lib/orthanc/db
+
+volumes:
+  orthanc-data:
+
+
