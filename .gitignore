@@ -1,0 +1,13 @@
+# Python-virtuaaliympäristö
+server/venvUS/
+
+# Käännetyt Python-välimuistit
+__pycache__/
+*.pyc
+
+# Djangon ja muiden kehitysympäristöjen roskatiedostot
+*.log
+db.sqlite3
+*.sqlite3
+
+
